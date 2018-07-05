@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search for Currency</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class = "container">
+        <form>
+            <div class='row'>
+<!--                <div>
+                    <label>Enter Currency</label>
+                    <input type='text' id='currencyName' autofocus>
+                    <button class='btn waves-effect wave-light' type='submit'><i class="search left">Search</i></button>
+                </div> -->
+                <div class='input-field'>
+                    <i class="material-icons compare_arrows">asda</i>
+                    <input type="text" id="currencyName" class="autocomplete">
+                    <label for="currencyName">Enter Currency Name</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', submitCurrency);
+
+        function submitCurrency(e){
+            e.preventDefault();
+            const currency = document.querySelector('#currencyName').value;
+            ipcRenderer.send('currency:add', currency);
+        }
+
+        // Find key by matchin string
+        $(document).ready(function(){
+            $('input.autocomplete').autocomplete({
+            data: {
+                "Bitcoin": 'BTC',
+                "Ethereum": 'ETH',
+                "Substratum": 'Substratum'
+            },
+            minLength: 3
+            });
+        });
+    </script>
+</body>
+</html>

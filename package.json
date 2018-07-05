@@ -1,0 +1,14 @@
+{
+  "name": "crpyotrak",
+  "version": "1.0.0",
+  "description": "Crypto Portfolio Tracker Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Victor Ifarinde",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^2.0.4"
+  }
+}

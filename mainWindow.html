@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tracker List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-wrapper">
+                <a class="brand-logo center">Cryto List</a>
+            </div>
+        </nav>
+        <ul></ul>
+    </div>
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        const ul = document.querySelector('ul');
+
+        // Add Currency
+        ipcRenderer.on('currency:add', function(e, currency){
+            ul.className = 'collection';
+            const li = document.createElement('li');
+            li.className = 'collectionItem';
+            const currencyText = document.createTextNode(currency);
+            li.appendChild(currencyText);
+            ul.appendChild(li);
+        });
+
+        // Clear Currency
+        ipcRenderer.on('currency:clear', function(e, currency){
+            ul.innerHTML = '';
+            ul.className = '';
+        });
+        
+        // Remove item(s)
+        ul.addEventListener('dblclick', removeCurrency);
+
+        function removeCurrency(e) {
+            e.target.remove();
+            if(ul.children.length == 0) {
+                ul.className = '';
+            }
+        }
+    </script>
+</body>
+</html>
